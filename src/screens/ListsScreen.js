@@ -12,13 +12,21 @@ const ListsScreen = () => {
   }
 
   const friends = makeFriends({name: 'Friend #', newFriend: true}, 355)
+  const cities = makeFriends({name: 'City #'}, 15)
   return(
     <View style={styles.wrap}>
       <Text style={styles.title}> Lists Screen</Text>
       <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(city, i) => i+city.name}
+        data={cities}
+        renderItem={({item}) => <Text style={styles.item}> {item.name} </Text>}
+      />
+      <FlatList
         keyExtractor={(friend, i) => i+friend.name}
         data={friends}
-        renderItem={({item}) => <Text> {item.name} </Text>}
+        renderItem={({item}) => <Text style={styles.item}> {item.name} </Text>}
       />
     </View>
   )
@@ -30,7 +38,11 @@ const styles =StyleSheet.create({
   },
   wrap: {
     paddingVertical: 5
-  }
+  },
+  item: {
+    marginVertical: 5,
+    paddingVertical: 2,
+  },
 })
 
 export default ListsScreen
