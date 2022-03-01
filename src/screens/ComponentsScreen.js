@@ -4,37 +4,51 @@ import {Button, Pressable, StyleSheet, Text, TextInput, View} from 'react-native
 const ComponentsScreen = () => {
   const [userName, setUserName] = useState('');
   const [isEditable, setIsEditable] = useState(true);
-  const onChange = ({nativeEvent: {eventCount, target, text}}) => {
+  const onChange = ({nativeEvent: {text}}) => {
     setUserName(text)
   }
   const toggleEditable = () => {
-    setIsEditable(!isEditable)
+    if(userName) {
+      setIsEditable(!isEditable)
+    }
   }
 
   return (
     <View style={styles.wrap}>
       <Text style={styles.title}>Getting started with React Native</Text>
-      {isEditable && (
-        <View style={styles.inputWithButton}>
-          <TextInput
-            type="text"
-            style={styles.input}
-            placeholder="Enter your name"
-            value={userName}
-            onChange={onChange}
-          />
-          <Button
-            onPress={toggleEditable}
-            title="OK"
-            style={styles.button}
-          />
-        </View>
+      <View style={styles.textWrap}>
 
+        <Text style={styles.text}>My name is </Text>
+        {isEditable ? (
+          <>
+            <TextInput
+              type="text"
+              style={styles.input}
+              placeholder="Enter your name"
+              value={userName}
+              onChange={onChange}
+            />
+            <Button
+              onPress={toggleEditable}
+              title="OK"
+              color={'#67b047'}
+            />
+            <Button
+              onPress={() => setUserName('')}
+              title="X"
+              color={'#ce0000'}
+            />
+          </>
+        ) : (
+          <Pressable
+            onLongPress={toggleEditable}
+          >
+            <Text style={styles.text}>{userName}</Text>
+          </Pressable>
 
-      )}
-      <Pressable onPress={toggleEditable}>
-        <Text style={styles.text}>My name is {userName}</Text>
-      </Pressable>
+        )}
+
+      </View>
 
     </View>
   );
@@ -52,19 +66,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   input: {
-    borderColor: 'black',
-    borderWidth: 1,
+    marginLeft: 5,
+    borderColor: '#afadad',
     borderStyle: 'solid',
-    padding: 10,
-    flex: 2,
-  },
-  button: {
-    flex: 1,
+    borderWidth: .5,
     padding: 3,
-
   },
-  inputWithButton: {
+  textWrap: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
   }
 });
 
