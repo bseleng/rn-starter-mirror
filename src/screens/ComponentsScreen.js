@@ -35,7 +35,7 @@ const ComponentsScreen = () => {
             />
             <Button
               onPress={() => setUserName('')}
-              title="X"
+              title="  X  "
               color={'#ce0000'}
             />
           </>
