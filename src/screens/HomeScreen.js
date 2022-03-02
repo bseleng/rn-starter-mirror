@@ -19,6 +19,17 @@ const HomeScreen = ({navigation: {navigate}}) => {
           Lists
         </Text>
       </TouchableOpacity>
+
+      <Pressable
+        style={styles.customButton}
+        onPress={() => navigate('Images')}
+      >
+        <Text
+          style={styles.customButtonText}
+        >
+          Images
+        </Text>
+      </Pressable>
     </View>
 
   );
@@ -39,6 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
 
   },
+
 
   customButtonText: {
     textAlign: 'center',
