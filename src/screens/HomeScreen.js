@@ -30,6 +30,17 @@ const HomeScreen = ({navigation: {navigate}}) => {
           Images
         </Text>
       </Pressable>
+
+      <Pressable
+        style={styles.customButton}
+        onPress={() => navigate('Counter')}
+      >
+        <Text
+          style={styles.customButtonText}
+        >
+          Counter
+        </Text>
+      </Pressable>
     </View>
 
   );
