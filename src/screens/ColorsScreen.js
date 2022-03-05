@@ -6,7 +6,7 @@ const ColorsScreen = () => {
   const [colors, setColors] = useState([]);
   const randomIntRgb = () => String(Math.floor(Math.random() * 256))
   const addColor = useCallback(() => {
-    setColors(colors => [...colors, 'rgb(' + randomIntRgb() + ',' + randomIntRgb() + ',' + randomIntRgb() + ')'])
+    setColors(colors => [...colors, 'rgb(' + randomIntRgb() + ', ' + randomIntRgb() + ', ' + randomIntRgb() + ')'])
   }, [colors, setColors])
 
   return (
@@ -21,8 +21,11 @@ const ColorsScreen = () => {
           keyExtractor={(item, i) => i + item}
           renderItem={({item}) => {
             return (
-              <View style={[styles.color, styles.bgColor(item)]}>
-                <Text>{item.join}</Text>
+              <View style={styles.colorWrap}>
+                <View style={[styles.color, styles.bgColor(item)]}>
+                </View>
+                <Text>{item}</Text>
+
               </View>
             )
           }}
@@ -34,10 +37,12 @@ const ColorsScreen = () => {
 
 const styles = StyleSheet.create({
   wrap: {
-    padding: 16
+    padding: 16,
+    paddingBottom: 50,
   },
-  colorsWrap: {
+  colorWrap: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   color: {
     width: 100,
