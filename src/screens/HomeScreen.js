@@ -16,6 +16,7 @@ const HomeScreen = ({navigation: {navigate}}) => {
       <Text style={styles.text}>Hi, it's me!</Text>
       <FlatList
       data={screens}
+      keyExtractor={(item, index) => index+item}
       renderItem={({item: {title, route, color}}) => (
         <NavigationButton
           navigate={navigate}
