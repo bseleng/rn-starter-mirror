@@ -1,73 +1,42 @@
 import React from 'react';
-import {Text, StyleSheet, View, Button, TouchableOpacity, Pressable} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import NavigationButton from "../components/NavigationButton";
+
+  const screens = [
+    {title: 'Input', route: 'Components', color:''},
+    {title: 'List', route: 'Lists', color:''},
+    {title: 'Images', route: 'Images', color:'blue'},
+    {title: 'Counter', route: 'Counter', color:''},
+    {title: 'Colors randomizer', route: 'Colors', color:'orange'},
+  ];
 
 const HomeScreen = ({navigation: {navigate}}) => {
   return (
-    <View>
+    <View  style={styles.wrap}>
       <Text style={styles.text}>Hi, it's me!</Text>
-      <Button
-        title={'Components'}
-        onPress={() => navigate('Components')}
+      <FlatList
+      data={screens}
+      renderItem={({item: {title, route, color}}) => (
+        <NavigationButton
+          navigate={navigate}
+          title={title}
+          route={route}
+          color={color}
+        />)}
       />
-      <TouchableOpacity
-        style={styles.customButton}
-        onPress={() => navigate('Lists')}
-      >
-        <Text
-          style={styles.customButtonText}
-        >
-          Lists
-        </Text>
-      </TouchableOpacity>
-
-      <Pressable
-        style={styles.customButton}
-        onPress={() => navigate('Images')}
-      >
-        <Text
-          style={styles.customButtonText}
-        >
-          Images
-        </Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.customButton}
-        onPress={() => navigate('Counter')}
-      >
-        <Text
-          style={styles.customButtonText}
-        >
-          Counter
-        </Text>
-      </Pressable>
     </View>
 
   );
 };
 
 const styles = StyleSheet.create({
+  wrap: {
+    paddingHorizontal: 16
+  },
   text: {
     fontSize: 30,
     marginBottom: 5,
   },
-
-  customButton: {
-    padding: 10,
-    backgroundColor: '#3b7707',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 5,
-
-  },
-
-
-  customButtonText: {
-    textAlign: 'center',
-    color: '#fff',
-    textTransform: 'uppercase',
-  }
 });
 
 export default HomeScreen;
