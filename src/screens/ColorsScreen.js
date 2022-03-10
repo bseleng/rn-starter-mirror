@@ -24,7 +24,7 @@ const ColorsScreen = () => {
   const addColor = useCallback(() => {
     setColors(colors => [...colors, getColorObj()])
   }, [colors, setColors])
-  const setSlider = (index, color, value) => {
+  const setSlider = useCallback((index, color, value) => {
     const colorsDraft = [...colors]
     colorsDraft[index][color] = value
     colorsDraft[index] = getColorObj(
@@ -34,9 +34,9 @@ const ColorsScreen = () => {
       colorsDraft[index].isEditable
     )
     setColors(colorsDraft)
-  }
+  }, [colors])
 
-  const toggleEditable = (index) => {
+  const toggleEditable = useCallback((index) => {
     const colorsDraft = [...colors]
     colorsDraft[index].isEditable = !colorsDraft[index].isEditable
     colorsDraft[index] = getColorObj(
@@ -46,7 +46,7 @@ const ColorsScreen = () => {
       colorsDraft[index].isEditable
     )
     setColors(colorsDraft)
-  }
+  }, [colors])
 
   return (<View style={styles.wrap}>
     <Button
