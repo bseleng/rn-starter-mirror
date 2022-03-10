@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
-import {Button, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Slider} from '@miblanchard/react-native-slider';
+import {Button, FlatList, StyleSheet, View} from 'react-native';
+import ColorBlock from "../components/ColorBlock";
 
 const getRandomColorValue = () => String(Math.floor(Math.random() * 256))
 const getColorObj = (
@@ -53,75 +53,29 @@ const ColorsScreen = () => {
       title={'Add color'}
       onPress={addColor}
     />
-    {colors.length > 0 && (<FlatList
-      data={colors}
-      keyExtractor={(item, i) => i + item}
-      renderItem={({item, index}) => {
-        return (
-          <Pressable
-            style={styles.colorWrap}
-            onPress={() => {
-              toggleEditable(index)
-            }
-            }
-          >
-            <View
-              style={[styles.color, styles.bgColor(item.rgb)]}
-            >
-            </View>
-            {!item.isEditable
-              ? (
-                <Text>{item.rgb}</Text>
-              ) : (
-                <View style={styles.slider}>
-                  <Slider
-                    value={item.red}
-                    onValueChange={value => setSlider(index, 'red', value)}
-                    minimumValue={0}
-                    max maximumValue={255}
-                    step={1}
-                    thumbTintColor={'red'}
-                  />
-                  <Slider
-                    value={item.green}
-                    onValueChange={value => setSlider(index, 'green', value)}
-                    minimumValue={0}
-                    max maximumValue={255}
-                    step={1}
-                    thumbTintColor={'green'}
-                  />
-                  <Slider
-                    value={item.blue}
-                    onValueChange={value => setSlider(index, 'blue', value)}
-                    minimumValue={0}
-                    max maximumValue={255}
-                    step={1}
-                    thumbTintColor={'blue'}
-                  />
-                </View>
-              )}
-          </Pressable>)
-      }}
-    />)}
+    {colors.length > 0 && (
+      <FlatList
+        data={colors}
+        keyExtractor={(item, i) => i + item}
+        renderItem={({item: {red, green, blue, rgb, isEditable}, index}) => (
+          <ColorBlock
+            red={red}
+            green={green}
+            blue={blue}
+            rgb={rgb}
+            isEditable={isEditable}
+            index={index}
+            setSlider={setSlider}
+            toggleEditable={toggleEditable}
+          />
+        )}
+      />)}
   </View>)
 }
 
 const styles = StyleSheet.create({
   wrap: {
     padding: 16, paddingBottom: 50,
-  }, colorWrap: {
-    flexDirection: 'row', alignItems: 'center',
-  }, color: {
-    width: 100, height: 100, margin: 10,
-  }, bgColor: rgbLocal => ({
-    backgroundColor: rgbLocal
-  }),
-  slider: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center',
   },
 })
 
