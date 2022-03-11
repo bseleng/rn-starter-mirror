@@ -14,26 +14,27 @@ const getColorObj = (
     red,
     green,
     blue,
-    rgb: `rgb(${red}, ${green}, ${blue})`,
     isEditable
   })
-
 }
 
 const reducer = (state, action) => {
-  let stateDraft
   switch (action.type) {
     case ColorsActions.addColor :
       return [...state, getColorObj()]
     case ColorsActions.toggleEditable :
-      stateDraft = [...state]
-      stateDraft[action.payload.index] = {...state[action.payload.index], isEditable: action.payload.value}
-      return stateDraft
+      const stateToggle = [...state]
+      stateToggle[action.payload.index] = {...stateToggle[action.payload.index], isEditable: action.payload.value}
+      return stateToggle
     case ColorsActions.changeColor:
-      stateDraft = [...state]
-      stateDraft[action.payload.index] = {...state[action.payload.index], [action.payload.color]: action.payload.value}
-      return stateDraft
-    default: return state
+      const stateColor = [...state]
+      stateColor[action.payload.index] = {
+        ...stateColor[action.payload.index],
+        [action.payload.color]: action.payload.value
+      }
+      return stateColor
+    default:
+      return state
   }
 }
 
@@ -49,13 +50,11 @@ const ColorsScreen = () => {
       <FlatList
         data={colors}
         keyExtractor={(item, i) => i + item}
-        renderItem={({item: {red, green, blue, rgb, isEditable}, index}) => {
-          console.log('TEST renderItem', colors.length)
+        renderItem={({item: {red, green, blue, isEditable}, index}) => {
           return (<ColorBlock
             red={red}
             green={green}
             blue={blue}
-            rgb={rgb}
             isEditable={isEditable}
             index={index}
             dispatch={dispatch}

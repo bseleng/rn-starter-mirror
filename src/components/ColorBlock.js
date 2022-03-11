@@ -4,16 +4,15 @@ import {Slider} from "@miblanchard/react-native-slider";
 import ColorsActions from "../Actions/ColorsActions";
 
 
-const ColorBlock = ({red, green, blue, rgb, isEditable, index, dispatch}) => {
-  // console.log('TEST INSIDE', index, rgb)
+const ColorBlock = ({red, green, blue, isEditable, index, dispatch}) => {
+  const rgb = `rgb(${red}, ${green}, ${blue})`
   return (
     <View
       style={styles.colorWrap}
     >
       <Pressable
-        style={[styles.color, styles.bgColor(rgb)]}
+        style={[styles.color, {backgroundColor: rgb}]}
         onPress={() => dispatch({type: ColorsActions.toggleEditable, payload: {index, value: !isEditable}})}
-
       >
       </Pressable>
       {!isEditable
@@ -23,7 +22,7 @@ const ColorBlock = ({red, green, blue, rgb, isEditable, index, dispatch}) => {
           <View style={styles.slider}>
             <Slider
               value={red}
-              onValueChange={value => dispatch({type: ColorsActions.changeColor, payload:{index, value, color: 'red'}})}
+              onValueChange={value => dispatch({type: ColorsActions.changeColor, payload: {index, value, color: 'red'}})}
               minimumValue={0}
               max maximumValue={255}
               step={1}
