@@ -1,16 +1,18 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {Slider} from "@miblanchard/react-native-slider";
+import ColorsActions from "../Actions/ColorsActions";
 
 
-const ColorBlock = ({red, green, blue, rgb, isEditable, index, toggleEditable, setSlider}) => {
+const ColorBlock = ({red, green, blue, rgb, isEditable, index, dispatch}) => {
+  // console.log('TEST INSIDE', index, rgb)
   return (
     <View
       style={styles.colorWrap}
     >
       <Pressable
         style={[styles.color, styles.bgColor(rgb)]}
-        onPress={() => toggleEditable(index)}
+        onPress={() => dispatch({type: ColorsActions.toggleEditable, payload: {index, value: !isEditable}})}
 
       >
       </Pressable>
@@ -21,7 +23,7 @@ const ColorBlock = ({red, green, blue, rgb, isEditable, index, toggleEditable, s
           <View style={styles.slider}>
             <Slider
               value={red}
-              onValueChange={value => setSlider(index, 'red', value)}
+              onValueChange={value => dispatch({type: ColorsActions.changeColor, payload:{index, value, color: 'red'}})}
               minimumValue={0}
               max maximumValue={255}
               step={1}
@@ -29,7 +31,7 @@ const ColorBlock = ({red, green, blue, rgb, isEditable, index, toggleEditable, s
             />
             <Slider
               value={green}
-              onValueChange={value => setSlider(index, 'green', value)}
+              onValueChange={value => dispatch({type: ColorsActions.changeColor, payload:{index, value, color: 'green'}})}
               minimumValue={0}
               max maximumValue={255}
               step={1}
@@ -37,7 +39,7 @@ const ColorBlock = ({red, green, blue, rgb, isEditable, index, toggleEditable, s
             />
             <Slider
               value={blue}
-              onValueChange={value => setSlider(index, 'blue', value)}
+              onValueChange={value => dispatch({type: ColorsActions.changeColor, payload:{index, value, color: 'blue'}})}
               minimumValue={0}
               max maximumValue={255}
               step={1}
