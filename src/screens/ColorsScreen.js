@@ -18,21 +18,22 @@ const getColorObj = (
   })
 }
 
-const reducer = (state, action) => {
-  switch (action.type) {
+const reducer = (state, {type, payload}) => {
+  let stateDraft
+  switch (type) {
     case ColorsActions.addColor :
       return [...state, getColorObj()]
     case ColorsActions.toggleEditable :
-      const stateToggle = [...state]
-      stateToggle[action.payload.index] = {...stateToggle[action.payload.index], isEditable: action.payload.value}
-      return stateToggle
+      stateDraft = [...state]
+      stateDraft[payload.index] = {...stateDraft[payload.index], isEditable: payload.value}
+      return stateDraft
     case ColorsActions.changeColor:
-      const stateColor = [...state]
-      stateColor[action.payload.index] = {
-        ...stateColor[action.payload.index],
-        [action.payload.color]: action.payload.value
+      stateDraft = [...state]
+      stateDraft[payload.index] = {
+        ...stateDraft[payload.index],
+        [payload.color]: payload.value
       }
-      return stateColor
+      return stateDraft
     default:
       return state
   }
