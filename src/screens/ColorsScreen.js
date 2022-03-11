@@ -21,9 +21,9 @@ const getColorObj = (
 const reducer = (state, {type, payload}) => {
   let stateDraft
   switch (type) {
-    case ColorsActions.addColor :
+    case ColorsActions.addColor:
       return [...state, getColorObj()]
-    case ColorsActions.toggleEditable :
+    case ColorsActions.toggleEditable:
       stateDraft = [...state]
       stateDraft[payload.index] = {...stateDraft[payload.index], isEditable: payload.value}
       return stateDraft
@@ -67,7 +67,8 @@ const ColorsScreen = () => {
 
 const styles = StyleSheet.create({
   wrap: {
-    padding: 16, paddingBottom: 50,
+    padding: 16,
+    paddingBottom: 50,
   },
 })
 
