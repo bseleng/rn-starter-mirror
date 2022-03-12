@@ -1,10 +1,28 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native'
 
+const actionTypes = {
+  increaseCount: 'increaseCount',
+  decreaseCount: 'decreaseCount',
+}
+
+const reducer = (state, {type, payload}) => {
+  switch (type) {
+    case actionTypes.increaseCount:
+      return state + payload;
+    case actionTypes.decreaseCount:
+      return state - payload >= 0 ? state - payload : state;
+    default:
+      return  state
+  }
+
+}
+
 const CounterScreen = () => {
-  const [count, setCount] = useState(0)
-  const increaseCount = () => setCount(count => ++count)
-  const decreaseCount = () => setCount(count => --count)
+  const increment = 10;
+  const [state, dispatch] = useReducer(reducer, 0)
+  const increaseCount = () => dispatch({type:actionTypes.increaseCount, payload:increment})
+  const decreaseCount = () =>  dispatch({type:actionTypes.decreaseCount, payload:increment})
   return (
     <View style={styles.wrap}>
       <Pressable
@@ -22,7 +40,7 @@ const CounterScreen = () => {
         current count
       </Text>
       <Text style={styles.count}>
-        {count}
+        {state}
       </Text>
     </View>
   )
