@@ -7,20 +7,20 @@ const actionTypes = {
 }
 
 const reducer = (state, {type, payload}) => {
+  const {count} = state;
   switch (type) {
     case actionTypes.increaseCount:
-      return state + payload;
+      return {...state, count: count+payload};
     case actionTypes.decreaseCount:
-      return state - payload >= 0 ? state - payload : state;
+      return count - payload >= 0 ?  {...state, count: count - payload} : state;
     default:
-      return  state
+      return state
   }
-
 }
 
 const CounterScreen = () => {
   const increment = 10;
-  const [state, dispatch] = useReducer(reducer, 0)
+  const [state, dispatch] = useReducer(reducer, {count: 0})
   const increaseCount = () => dispatch({type:actionTypes.increaseCount, payload:increment})
   const decreaseCount = () =>  dispatch({type:actionTypes.decreaseCount, payload:increment})
   return (
@@ -40,7 +40,7 @@ const CounterScreen = () => {
         current count
       </Text>
       <Text style={styles.count}>
-        {state}
+        {state.count}
       </Text>
     </View>
   )
