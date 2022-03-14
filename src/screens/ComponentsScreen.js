@@ -23,7 +23,7 @@ const ComponentsScreen = () => {
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.title}>Getting started with React Native</Text>
+      <Text style={styles.title}>Long press the name to reenable editing</Text>
       <View style={styles.textWrap}>
 
         <Text style={styles.text}>My name is </Text>
@@ -50,7 +50,7 @@ const ComponentsScreen = () => {
         ) : (
           <Pressable
             onLongPress={toggleEditable}
-            hitSlop={20}
+            hitSlop={50}
           >
             <Text style={styles.text}>{userName}</Text>
           </Pressable>
