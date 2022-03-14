@@ -17,9 +17,9 @@ const ComponentsScreen = () => {
       case userName.length === 0:
         return 'cannot be empty'
       case userName.length < 3:
-        return 'name is too short'
-      case userName.length > 13:
-        return 'name is too long'
+        return 'too short (min 3 chars)'
+      case userName.length > 15:
+        return 'too long (max 15 chars)'
       default:
         return '';
     }
