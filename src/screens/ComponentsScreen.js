@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 const ComponentsScreen = () => {
   const [userName, setUserName] = useState('');
@@ -9,8 +10,15 @@ const ComponentsScreen = () => {
   }
   const toggleEditable = () => {
     if(userName) {
-      setIsEditable(!isEditable)
+      return Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+        .then(() => setIsEditable(!isEditable))
     }
+    return  Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+  }
+
+  const clearInput = () => {
+    return Haptics.notificationAsync(Haptics.NotificationFeedbackType.Light)
+      .then(()=> setUserName(''))
   }
 
   return (
@@ -34,7 +42,7 @@ const ComponentsScreen = () => {
               color={'#67b047'}
             />
             <Button
-              onPress={() => setUserName('')}
+              onPress={clearInput}
               title="  X  "
               color={'#ce0000'}
             />
@@ -42,6 +50,7 @@ const ComponentsScreen = () => {
         ) : (
           <Pressable
             onLongPress={toggleEditable}
+            hitSlop={20}
           >
             <Text style={styles.text}>{userName}</Text>
           </Pressable>
