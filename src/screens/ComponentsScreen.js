@@ -35,6 +35,8 @@ const ComponentsScreen = () => {
               placeholder="Enter your name"
               value={userName}
               onChange={onChange}
+              autoCapitalize="words"
+              autoCorrect={false}
             />
             <Button
               onPress={toggleEditable}
