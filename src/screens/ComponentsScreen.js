@@ -4,14 +4,32 @@ import * as Haptics from 'expo-haptics';
 
 const ComponentsScreen = () => {
   const [userName, setUserName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
   const [isEditable, setIsEditable] = useState(true);
   const onChange = ({nativeEvent: {text}}) => {
+    if(userName !== text) {
+      setErrorMessage('')
+    }
     setUserName(text)
   }
+  const validateUserName = (userName) => {
+    switch (true) {
+      case userName.length === 0:
+        return 'cannot be empty'
+      case userName.length < 3:
+        return 'name is too short'
+      case userName.length > 13:
+        return 'name is too long'
+      default:
+        return '';
+    }
+  }
   const toggleEditable = () => {
-    if(userName) {
+    if(!validateUserName(userName)) {
       return Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
         .then(() => setIsEditable(!isEditable))
+    } else {
+      setErrorMessage(validateUserName(userName))
     }
     return  Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
   }
@@ -28,10 +46,11 @@ const ComponentsScreen = () => {
 
         <Text style={styles.text}>My name is </Text>
         {isEditable ? (
-          <>
+          <View style={styles.editableWrap}>
+            <View style={styles.editableBlock}>
             <TextInput
               type="text"
-              style={styles.input}
+              style={[styles.input, errorMessage ? styles.errorInput : '']}
               placeholder="Enter your name"
               value={userName}
               onChange={onChange}
@@ -48,7 +67,15 @@ const ComponentsScreen = () => {
               title="  X  "
               color={'#ce0000'}
             />
-          </>
+
+            </View>
+            <View>
+              <Text style={styles.errorMessage}>
+                {errorMessage}
+              </Text>
+            </View>
+
+          </View>
         ) : (
           <Pressable
             onLongPress={toggleEditable}
@@ -75,6 +102,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    alignSelf: "flex-start",
   },
   input: {
     marginLeft: 5,
@@ -87,6 +115,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 5,
+  },
+  errorInput: {
+    borderColor: 'rgba(225,0,0,0.93)',
+  },
+  errorMessage: {
+    fontSize: 15,
+    color: '#c90f0f'
+  },
+  editableBlock: {
+    flexDirection: 'row'
+  },
+  editableWrap: {
+    flexDirection: 'column',
+    alignItems: 'center',
   }
 });
 
