@@ -8,6 +8,7 @@ import NavigationButton from "../components/NavigationButton";
     {title: 'Images', route: 'Images', color:'blue'},
     {title: 'Counter', route: 'Counter', color:''},
     {title: 'Colors randomizer', route: 'Colors', color:'orange'},
+    {title: 'Boxes', route: 'Boxes', color:''},
   ];
 
 const HomeScreen = ({navigation: {navigate}}) => {
