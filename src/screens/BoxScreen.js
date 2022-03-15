@@ -1,16 +1,28 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native'
+import SimpleColorBox from "../components/SimpleColorBox";
 
 const BoxScreen = () => {
+  const boxSide = 80
   return (
     <View style={styles.wrap}>
       <View style={styles.titleWrap}>
         <Text style={styles.title}> BoxScreen</Text>
       </View>
-      <View style={styles.childrenWrap}>
-        <Text style={[styles.text, {backgroundColor: 'rgba(31,71,227,0.5)'}]}> Child #1</Text>
-        <Text style={[styles.text, {backgroundColor: 'rgba(206,0,0,0.5)'}]}> Child #2</Text>
-        <Text style={[styles.text, {backgroundColor: 'rgba(61,131,43,0.5)'}]}> Child #3</Text>
+      <View style={styles.groupOneWrap}>
+        <SimpleColorBox color={'rgba(0,22,255,0.78)'} width={boxSide}/>
+        <SimpleColorBox color={'rgb(215,97,173)'} width={boxSide} customStyle={{marginTop: 100}}/>
+        <SimpleColorBox color={'rgb(34,101,74)'} width={boxSide}/>
+      </View>
+      <View style={styles.groupTwoWrap}>
+        <SimpleColorBox color={'rgba(190,19,99,0.78)'} width={boxSide}/>
+        <SimpleColorBox color={'rgb(105,171,24)'} width={boxSide} customStyle={{position: 'absolute', top: 110, left: '37.5%'}}/>
+        <SimpleColorBox color={'rgb(11,7,133)'} width={boxSide}/>
+      </View>
+      <View style={styles.groupThreeWrap}>
+        <SimpleColorBox color={'rgba(157,15,166,0.78)'} width={boxSide}/>
+        <SimpleColorBox color={'rgb(106,25,25)'} width={boxSide} customStyle={{alignSelf: 'flex-end'}}/>
+        <SimpleColorBox color={'rgb(170,255,240)'} width={boxSide}/>
       </View>
     </View>
   )
@@ -25,9 +37,34 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: 'rgba(140,139,139,0.58)'
   },
-  childrenWrap: {
+  groupOneWrap: {
     marginTop: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(140,139,139,0.58)',
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
+
+  groupTwoWrap: {
+    marginTop: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(140,139,139,0.58)',
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  groupThreeWrap: {
+    marginTop: 110,
+    height: 200,
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(140,139,139,0.58)',
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
   title: {
     fontSize: 18,
     borderLeftWidth: 10,
