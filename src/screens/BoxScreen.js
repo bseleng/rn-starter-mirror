@@ -1,9 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native'
+import {Dimensions, StyleSheet, Text, View} from 'react-native'
 import SimpleColorBox from "../components/SimpleColorBox";
 
+const screenWidth = Dimensions.get('screen').width;
+const leftToCenter = (elWidth, horizontalMargin) => (screenWidth - elWidth - horizontalMargin) / 2
 const BoxScreen = () => {
   const boxSide = 80
+
   return (
     <View style={styles.wrap}>
       <View style={styles.titleWrap}>
@@ -16,7 +19,7 @@ const BoxScreen = () => {
       </View>
       <View style={styles.groupTwoWrap}>
         <SimpleColorBox color={'rgba(190,19,99,0.78)'} width={boxSide}/>
-        <SimpleColorBox color={'rgb(105,171,24)'} width={boxSide} customStyle={{position: 'absolute', top: 110, left: '37.5%'}}/>
+        <SimpleColorBox color={'rgb(105,171,24)'} width={boxSide} customStyle={{position: 'absolute', top: 110, left: leftToCenter(boxSide, 32)}}/>
         <SimpleColorBox color={'rgb(11,7,133)'} width={boxSide}/>
       </View>
       <View style={styles.groupThreeWrap}>
