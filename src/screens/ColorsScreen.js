@@ -2,6 +2,7 @@ import React, {useReducer} from 'react';
 import {Button, FlatList, StyleSheet, View} from 'react-native';
 import ColorBlock from "../components/ColorBlock";
 import ColorsActions from "../Actions/ColorsActions";
+import {Counter} from "../utils/Counter";
 
 const getRandomColorValue = () => String(Math.floor(Math.random() * 256))
 const getColorObj = (
@@ -42,7 +43,9 @@ const reducer = (state, {type, payload}) => {
 const ColorsScreen = () => {
   const [colors, dispatch] = useReducer(reducer, [])
 
-  return (<View style={styles.wrap}>
+  return (
+    <View style={styles.wrap}>
+      <Counter title={'colors screen'}/>
     <Button
       title={'Add color'}
       onPress={() => dispatch({type: ColorsActions.addColor})}
